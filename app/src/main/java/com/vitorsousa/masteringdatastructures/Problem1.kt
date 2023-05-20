@@ -31,12 +31,12 @@ fun checkPairWithSum(array: List<Int>, sum: Int): Boolean {
 // O(n) - Time Complexity
 // O(n) - Space Complexity
 fun checkPairWithSum2(array: List<Int>, sum: Int): Boolean {
-    val map = mutableMapOf<Int, Boolean>()
+    val map = hashSetOf<Int>()
     array.forEach { item ->
-        if (map.containsKey(item)) {
+        if (map.contains(item)) {
             return true
         }
-        map[sum - item] = false
+        map.add(sum - item)
     }
     return false
 }
