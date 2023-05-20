@@ -2,6 +2,12 @@
 
 Study of Big O Notation, Data Structures and Algorithms in Kotlin.
 
+## Images
+
+![Logo](https://github.com/vitor-sousa/MasteringDataStructures/blob/master/images/big-o-chart.png?raw=true)
+
+![Logo](https://raw.githubusercontent.com/vitor-sousa/MasteringDataStructures/master/images/big-o-cheat-sheet.webp)
+
 
 ## Problems Solved
 
