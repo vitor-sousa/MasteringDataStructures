@@ -16,7 +16,7 @@ fun main(vararg args: String) {
 }
 
 // O(n) - Time Complexity
-// O(n) - Spac Complexity
+// O(n) - Space Complexity
 fun moveZeroes(array: ArrayList<Int>): List<Int> {
     val finalArray = arrayListOf<Int>()
     var totalZeros = 0
