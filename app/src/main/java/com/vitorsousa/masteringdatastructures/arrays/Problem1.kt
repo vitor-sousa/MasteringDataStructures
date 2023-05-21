@@ -1,14 +1,15 @@
-package com.vitorsousa.masteringdatastructures
+package com.vitorsousa.masteringdatastructures.arrays
 
 
 /**
  * Check if pair with given Sum exists in Array
  */
 
-val array1 = listOf(-6, 0, 9, 2, 5, 7)
-val array2 = listOf(6, 4, 3, 2, 1, 7)
-
 fun main(vararg args: String) {
+
+    val array1 = listOf(-6, 0, 9, 2, 5, 7)
+    val array2 = listOf(6, 4, 3, 2, 1, 7)
+
     println(checkPairWithSum(array1, 8))
     println(checkPairWithSum2(array2, 8))
 }
