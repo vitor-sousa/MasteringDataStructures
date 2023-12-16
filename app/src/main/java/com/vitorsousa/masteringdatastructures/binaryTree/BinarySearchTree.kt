@@ -8,6 +8,8 @@ class BinarySearchTree() {
 
     private var root: Node? = null
 
+    fun lookup(value: Int) = searchNode(value)
+
     fun insert(newValue: Int) {
         if (root == null) {
             insertRoot(newValue)
@@ -16,7 +18,7 @@ class BinarySearchTree() {
 
         val node = searchNode(
             value = newValue,
-            returnsPreviousNode = true
+            returnsParent = true
         )
         if (newValue > node?.value!!) {
             node.right = Node(newValue)
@@ -25,15 +27,47 @@ class BinarySearchTree() {
         node.left = Node(newValue)
     }
 
-    fun lookup(value: Int) = searchNode(value)
+    fun remove(value: Int) {
+        if (root == null) return
 
-    private fun searchNode(value: Int, returnsPreviousNode: Boolean = false): Node? {
+        val parent = searchNode(value, true)
+        val node = searchNode(value)
+
+        if (node?.left == null && node?.right == null) {
+            removeNoChildNode(node, parent)
+            return
+        }
+        if (node.left != null && node.right != null) {
+            // TODO: create fun to remove when node has two nodes 
+            return
+        }
+        removeOneChildNode(node, parent)
+    }
+
+    private fun removeNoChildNode(node: Node?, parent: Node?) {
+        if (node?.value == parent?.left?.value) {
+            parent?.left = null
+            return
+        }
+        parent?.right = null
+    }
+
+    private fun removeOneChildNode(node: Node, parent: Node?) {
+        val child: Node? = node.left ?: node.right
+        if (node.value == parent?.left?.value) {
+            parent.left = child
+            return
+        }
+        parent?.right = child
+    }
+
+    private fun searchNode(value: Int, returnsParent: Boolean = false): Node? {
         var found = false
         var currentNode: Node? = root ?: return null
-        var previousNode: Node? = root
+        var parentNode: Node? = root
 
         do {
-            if(returnsPreviousNode) previousNode = currentNode
+            if(returnsParent) parentNode = currentNode
 
             currentNode = if (value > currentNode!!.value) {
                 currentNode.right
@@ -44,7 +78,7 @@ class BinarySearchTree() {
 
         } while (!found)
 
-        return if(returnsPreviousNode) previousNode else currentNode
+        return if(returnsParent) parentNode else currentNode
     }
 
     private fun insertRoot(value: Int) {
@@ -53,20 +87,20 @@ class BinarySearchTree() {
 
     override fun toString() = diagram(root)
 
-    private fun diagram(node: Node?,
-                        top: String = "",
-                        root: String = "",
-                        bottom: String = ""): String {
+    private fun diagram(
+        node: Node?,
+        top: String = "",
+        root: String = "",
+        bottom: String = ""
+    ): String {
         return node?.let {
             if (node.left == null && node.right == null) {
                 "$root${node.value}\n"
             } else {
-                diagram(node.right, "$top ", "$top┌──", "$top│ ") +
-                        root + "${node.value}\n" + diagram(node.left, "$bottom│ ", "$bottom└──", "$bottom ")
+                diagram(node.right, "$top ", "$top┌──", "$top│ ") + root + "${node.value}\n" + diagram(node.left, "$bottom│ ", "$bottom└──", "$bottom ")
             }
         } ?: "${root}null\n"
     }
-
 }
 
 fun main(vararg args: String) {
@@ -77,7 +111,14 @@ fun main(vararg args: String) {
     binarySearchTree.insert(20)
     binarySearchTree.insert(170)
     binarySearchTree.insert(15)
-    binarySearchTree.insert(1)
+//    binarySearchTree.insert(1)
+//    println(binarySearchTree.toString())
     println(binarySearchTree.toString())
+    binarySearchTree.remove(4)
+    binarySearchTree.insert(4)
+    binarySearchTree.insert(7)
+    println(binarySearchTree.toString())
+
+
 }
 
