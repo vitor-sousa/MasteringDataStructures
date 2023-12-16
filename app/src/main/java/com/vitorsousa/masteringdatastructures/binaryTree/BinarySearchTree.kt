@@ -2,13 +2,13 @@ package com.vitorsousa.masteringdatastructures.binaryTree
 
 class BinarySearchTree() {
 
-    constructor(value: Byte) : this() {
+    constructor(value: Int) : this() {
         insertRoot(value)
     }
 
     private var root: Node? = null
 
-    fun insert(newValue: Byte) {
+    fun insert(newValue: Int) {
         if (root == null) {
             insertRoot(newValue)
             return
@@ -25,9 +25,9 @@ class BinarySearchTree() {
         node.left = Node(newValue)
     }
 
-    fun lookup(value: Byte) = searchNode(value)
+    fun lookup(value: Int) = searchNode(value)
 
-    private fun searchNode(value: Byte, returnsPreviousNode: Boolean = false): Node? {
+    private fun searchNode(value: Int, returnsPreviousNode: Boolean = false): Node? {
         var found = false
         var currentNode: Node? = root ?: return null
         var previousNode: Node? = root
@@ -47,7 +47,7 @@ class BinarySearchTree() {
         return if(returnsPreviousNode) previousNode else currentNode
     }
 
-    private fun insertRoot(value: Byte) {
+    private fun insertRoot(value: Int) {
         root = Node(value)
     }
 
@@ -58,15 +58,13 @@ class BinarySearchTree() {
 
 fun main(vararg args: String) {
     val binarySearchTree = BinarySearchTree()
-    binarySearchTree.insert(10)
+    binarySearchTree.insert(9)
     binarySearchTree.insert(4)
-    binarySearchTree.insert(15)
-    binarySearchTree.insert(2)
-    binarySearchTree.insert(23)
     binarySearchTree.insert(6)
-    binarySearchTree.insert(12)
-    binarySearchTree.insert(3)
-    val node = binarySearchTree.lookup(4)
-    println(node)
+    binarySearchTree.insert(20)
+    binarySearchTree.insert(170)
+    binarySearchTree.insert(15)
+    binarySearchTree.insert(1)
+    println(binarySearchTree.toString())
 }
 
