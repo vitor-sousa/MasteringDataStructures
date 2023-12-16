@@ -51,9 +51,22 @@ class BinarySearchTree() {
         root = Node(value)
     }
 
-    override fun toString(): String {
-        return root.toString()
+    override fun toString() = diagram(root)
+
+    private fun diagram(node: Node?,
+                        top: String = "",
+                        root: String = "",
+                        bottom: String = ""): String {
+        return node?.let {
+            if (node.left == null && node.right == null) {
+                "$root${node.value}\n"
+            } else {
+                diagram(node.right, "$top ", "$top┌──", "$top│ ") +
+                        root + "${node.value}\n" + diagram(node.left, "$bottom│ ", "$bottom└──", "$bottom ")
+            }
+        } ?: "${root}null\n"
     }
+
 }
 
 fun main(vararg args: String) {
