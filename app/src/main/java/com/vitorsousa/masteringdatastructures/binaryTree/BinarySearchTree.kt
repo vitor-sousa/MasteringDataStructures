@@ -38,7 +38,7 @@ class BinarySearchTree() {
             return
         }
         if (node.left != null && node.right != null) {
-            // TODO: create fun to remove when node has two nodes 
+            removeTwoChildNode(node)
             return
         }
         removeOneChildNode(node, parent)
@@ -61,7 +61,30 @@ class BinarySearchTree() {
         parent?.right = child
     }
 
-    private fun searchNode(value: Int, returnsParent: Boolean = false): Node? {
+    private fun removeTwoChildNode(node: Node) {
+        var currentNode = node.right
+
+        do {
+            if (currentNode?.left != null) currentNode = currentNode.left
+        } while (currentNode?.left != null)
+
+        val parentCurrentNode = searchNode(currentNode!!.value, true)
+
+        if (node.value == root?.value) {
+            node.value = currentNode.value
+            parentCurrentNode?.left = currentNode.right
+        } else {
+            parentCurrentNode?.value = currentNode.value
+            parentCurrentNode?.right = null
+        }
+    }
+
+    private fun searchNode(
+        value: Int,
+        returnsParent: Boolean = false
+    ): Node? {
+        if (value == root?.value) return root
+
         var found = false
         var currentNode: Node? = root ?: return null
         var parentNode: Node? = root
@@ -105,20 +128,16 @@ class BinarySearchTree() {
 
 fun main(vararg args: String) {
     val binarySearchTree = BinarySearchTree()
-    binarySearchTree.insert(9)
+    binarySearchTree.insert(5)
+    binarySearchTree.insert(3)
+    binarySearchTree.insert(8)
+    binarySearchTree.insert(2)
     binarySearchTree.insert(4)
     binarySearchTree.insert(6)
-    binarySearchTree.insert(20)
-    binarySearchTree.insert(170)
-    binarySearchTree.insert(15)
-//    binarySearchTree.insert(1)
-//    println(binarySearchTree.toString())
-    println(binarySearchTree.toString())
-    binarySearchTree.remove(4)
-    binarySearchTree.insert(4)
+    binarySearchTree.insert(9)
     binarySearchTree.insert(7)
     println(binarySearchTree.toString())
-
-
+    binarySearchTree.remove(5)
+    println(binarySearchTree.toString())
 }
 
